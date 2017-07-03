@@ -1,0 +1,8 @@
+node_modules
+.env
+bamazonCustomer.js
+config.js
+createdb.js
+greatBay.js
+iceCream.js
+playlist.js
