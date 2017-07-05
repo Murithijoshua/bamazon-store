@@ -6,3 +6,6 @@ createdb.js
 greatBay.js
 iceCream.js
 playlist.js
+.vscode/
+instructions.md 
+example.md 

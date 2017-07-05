@@ -7,7 +7,7 @@ const inquirer = require('inquirer');
 
 number.settings = {
 	currency: {
-		precision : 2   // decimal places
+		precision : 0   // decimal places
 	}
 }
 
@@ -66,37 +66,55 @@ function selectItem () {
         }
       }
   ];  
-    inquirer.prompt(pickItem, function processPickItem (pickItem) {
+    inquirer.prompt(pickItem, processPickItem(answer)); 
+    
+    
+    function processPickItem (answer) {
       var item = parseInt(answer.item);
       var query = ("SELECT item_id, product_name, stock_quantity FROM products WHERE item_id =?");
-      connection.query(query, [answer.item], function(err, response) {
+      connection.query(query, [pickItem.item], function(err, response) {
         if (err) {
          console.log(err);
-         inputPrompt();
+         selectItem();
         } 
         else if(response.length < 1) {
           console.log("That is not an item for sale or there are no quantities available ")
-          inputPrompt();
+          selectItem();
         }
         else if (response[0].stock_quantity <= 0){
             console.log("unforunately, we are out of stock at the moment")
-            inputPrompt();
+            selectItem();
         }
         else {
           console.log ("We have  "+ response[0].stock_quantity + " " + response[0].product_name + " available");
            connection.end();
         }
       })
-    })
+    }
 }
 
-function replay () {
-  connection.query("SELECT * FROM products WHERE item_id = '4'", function (err, result) {
-    if (err) throw err;
-    console.log(result);
-  });
-}
+  // switch (item) {
+
+        //   case err :
+        //   console.log(err);
+        //   selectProduct();
+        //   break;
+
+        //   case (response.length < 1):
+        //   console.log ("That is not an item for sale");
+        //   selectProduct();
+        //   break;
+
+        //   case response[0].stock_quantity <= 0:
+        //   console.log ("Sorry, we are currently out of stock on "+ response.product_name)
+        //   selectProduct();
+        //   break;
+
+        //   default:
+        //   console.log("We have " + response[0].stock_quantity + " " + response[0].product_name + "'s for sale")
+        //   connection.end();
+
+        // }
 
 displayProducts();
-//replay();
 
