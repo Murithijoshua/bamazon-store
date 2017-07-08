@@ -6,7 +6,7 @@ const number = require('accounting')
 const inquirer = require('inquirer');
 const colors = require('colors');
 const env = require('./.env');
-var item, qty, updateQTY, grandTotal = 0, itemsPurchased = 0;
+var item, qty, updateQTY, total, grandTotal = 0, itemsPurchased = 0;
 
 //create object containing mysql connection values
 var connection = mysql.createConnection ({
@@ -35,7 +35,7 @@ function displayProducts() {
       head: ['Item ID', 'Product Name', 'Department', 'Price (billions)', 'Quantity']
     });
     for (let i = 0; i < response.length; i++) {
-      table.push([response[i].item_id, response[i].product_name, response[i].department_name, response[i].product_price, response[i].stock_quantity])   
+      table.push([response[i].item_id, response[i].product_name, response[i].department_name, '$' + response[i].product_price, response[i].stock_quantity])   
     }
     console.log(table.toString());
    
@@ -112,18 +112,18 @@ function selectQuantity () {
         else {
           itemsPurchased++;
           var price = parseInt(response[0].product_price);
-          var total = qty * price * 1000;
+          total = qty * price
           grandTotal = grandTotal + total;
           
           updateQTY = response[0].stock_quantity - qty;
 
-      connection.query('SELECT * FROM products', function (error, response){
+      connection.query(query, [item], function (error, response){
 
       purchase = new Table ({ 
-          head: ['Product Name', 'Price', 'Quantity', 'Total']
+          head: ['Product Name', 'Price (Billions)', 'Quantity', 'Total']
       });
               
-              purchase.push([response[0].product_name, response[0].product_price, qty, total]);
+              purchase.push([response[0].product_name, response[0].product_price, qty, '$' + total]);
               
               console.log(purchase.toString());
               updateStock();  //call method
@@ -147,11 +147,12 @@ function selectQuantity () {
 
 //method to update stock quanities in products table
 function updateStock () {
+  
   connection.query(
     "UPDATE products SET ? WHERE ?",
     [
       {
-        stock_quantity: updateQTY
+        stock_quantity: updateQTY, product_sales: total
       },
       {
         item_id: item
@@ -184,10 +185,10 @@ function replay () {
          connection.query('SELECT * FROM invoice', function (error, response){
         
           let receipt = new Table ({ 
-          head: ['Product Name', 'Price', 'Quantity', 'Total']
+          head: ['Product Name', 'Price (Billions)', 'Quantity', 'Total']
      })
     for (let i = 0; i < response.length; i++) {
-     receipt.push([response[i].product_name, response[i].product_price, response[i].quantity, response[i].total]);
+     receipt.push([response[i].product_name, response[i].product_price, response[i].quantity, '$' + response[i].total]);
     }
     console.log(receipt.toString());
     console.log('Grand Total: '+ number.formatMoney(grandTotal));

@@ -1,6 +1,6 @@
 node_modules
 .env
-bamazonCustomer.js
+bamazonCustomer2.js
 config.js
 createdb.js
 greatBay.js
@@ -9,3 +9,4 @@ playlist.js
 .vscode/
 instructions.md 
 example.md 
+server.js

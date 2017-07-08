@@ -18,6 +18,8 @@ connection.connect(function(err){
     console.log('Error connecting to Db');
     return;
   };
+  console.log('Connected!')
+  menu();
 });
 
 function menu() {
@@ -62,10 +64,12 @@ function displayProducts() {
   connection.query('SELECT * FROM products', function (error, response){
         
     let table = new Table ({ 
-      head: ['Item ID', 'Product Name', 'Department', 'Price (billions)', 'Quantity']
+      head: ['Item ID', 'Product Name', 'Department', 'Price (billions)', 'Quantity'],
+       style: {'textAlign': 'center'}
+      
     });
     for (let i = 0; i < response.length; i++) {
-      table.push([response[i].item_id, response[i].product_name, response[i].department_name, response[i].product_price, response[i].stock_quantity])   
+      table.push([response[i].item_id, response[i].product_name, response[i].department_name, '$' + response[i].product_price, response[i].stock_quantity])   
     }
     console.log(table.toString());
      menu();
@@ -81,7 +85,7 @@ function lowStock () {
       head: ['Item ID', 'Product Name', 'Department', 'Price (billions)', 'Quantity']
     });
     for (let i = 0; i < response.length; i++) {
-      table.push([response[i].item_id, response[i].product_name, response[i].department_name, response[i].product_price, response[i].stock_quantity])   
+      table.push([response[i].item_id, response[i].product_name, response[i].department_name, '$' + response[i].product_price, response[i].stock_quantity])   
     }
     console.log(table.toString());
     menu();
@@ -181,4 +185,3 @@ inquirer.prompt(
     })
 }
 
-menu();
