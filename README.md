@@ -16,7 +16,7 @@ A Node.js / MySQL Amazon-like app
 
 ## :dvd: Installation and Usage 
 
-* Copy the MySQL script in the bamazondb.sql file to MySQL Workbench as run the script
+* Copy the MySQL script in the bamazondb.sql file to MySQL Workbench and run the script
 * This will create the bamazon database and tables needed to run the modules
 
 ## :boom: Features
@@ -25,11 +25,13 @@ A Node.js / MySQL Amazon-like app
 * bamazonManager will display products, low inventory items, restock inventory and create new products.
 * bamazonExecutive will display department sales and gross profit as well as creating new departments.
 
-* See screen shots in repository
 
 
-## :bust_in_silhouette
+
+## :bust_in_silhouette:
 
 * Rich Cross 
 
+## :camera:
 
+* See screenshots in repository for a sample of app

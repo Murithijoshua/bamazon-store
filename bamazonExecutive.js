@@ -56,14 +56,15 @@ function menu () {
 
 function viewSales () {
 
-    let query =  "SELECT d.department_id, d.department_name, d.overhead_costs, ";
-        query +=  "SUM(p.product_sales) AS sales, ";
-        query +=  "p.product_sales - d.overhead_costs AS gross_profit ";
+    let query =  "SELECT d.department_id, d.department_name,  ";
+        query +=  "SUM(p.product_sales) AS sales, d.overhead_costs,";
+        query +=  "sum(p.product_sales) - d.overhead_costs AS gross_profit ";
         query +=  "FROM department AS d ";
         query +=  "INNER JOIN products AS p ON d.department_name = p.department_name ";
         query +=  "GROUP BY d.department_name ";
         query +=  "ORDER BY p.product_sales DESC";
        
+      
   connection.query(query, function (error, response){
     if(error) throw error;  
     let table = new Table ({ 
