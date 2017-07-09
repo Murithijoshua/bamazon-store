@@ -18,7 +18,7 @@ connection.connect(function(err){
     console.log('Error connecting to Db');
     return;
   };
-  console.log('Connected!')
+  console.log('Connected to Bamazon')
   menu();
 });
 
@@ -53,6 +53,7 @@ function menu() {
             break;
 
             default:
+            console.reset();
             console.log("Goodbye".red);
             connection.end();    
        };
@@ -71,6 +72,7 @@ function displayProducts() {
     for (let i = 0; i < response.length; i++) {
       table.push([response[i].item_id, response[i].product_name, response[i].department_name, '$' + response[i].product_price, response[i].stock_quantity])   
     }
+    console.reset();
     console.log(table.toString());
      menu();
   })
@@ -87,6 +89,7 @@ function lowStock () {
     for (let i = 0; i < response.length; i++) {
       table.push([response[i].item_id, response[i].product_name, response[i].department_name, '$' + response[i].product_price, response[i].stock_quantity])   
     }
+    console.reset();
     console.log(table.toString());
     menu();
     })
@@ -168,7 +171,6 @@ inquirer.prompt(
       message: "Enter the inventory quantity"
     }
   ]) .then(function(answer) {
-        console.log(answer.item, answer.department, answer.price, answer.quantity);
          let query = "INSERT INTO products SET ?";
          let values =
          {
@@ -179,9 +181,13 @@ inquirer.prompt(
          }
          
       connection.query(query, values, function(err, response) {
+        if (err) throw err;
          console.log(response.affectedRows + " product inserted!\n");
          menu();
       })
     })
 }
 
+console.reset = function () {
+  return process.stdout.write('\033c');
+}

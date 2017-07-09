@@ -5,7 +5,6 @@ const Table = require('cli-table');
 const number = require('accounting')
 const inquirer = require('inquirer');
 const colors = require('colors');
-const env = require('./.env');
 var item, qty, updateQTY, total, grandTotal = 0, itemsPurchased = 0;
 
 //create object containing mysql connection values
@@ -23,7 +22,10 @@ connection.connect(function(err){
     console.log('Error connecting to Db');
     return;
   };
-  console.log('Connected!');
+  console.log('Connected to Bamazon');
+ 
+  displayProducts();
+
 });
 
 
@@ -37,6 +39,7 @@ function displayProducts() {
     for (let i = 0; i < response.length; i++) {
       table.push([response[i].item_id, response[i].product_name, response[i].department_name, '$' + response[i].product_price, response[i].stock_quantity])   
     }
+    console.reset();
     console.log(table.toString());
    
     selectProduct();    //call method
@@ -124,7 +127,7 @@ function selectQuantity () {
       });
               
               purchase.push([response[0].product_name, response[0].product_price, qty, '$' + total]);
-              
+              console.reset();
               console.log(purchase.toString());
               updateStock();  //call method
       }); 
@@ -190,6 +193,7 @@ function replay () {
     for (let i = 0; i < response.length; i++) {
      receipt.push([response[i].product_name, response[i].product_price, response[i].quantity, '$' + response[i].total]);
     }
+    console.reset();
     console.log(receipt.toString());
     console.log('Grand Total: '+ number.formatMoney(grandTotal));
     connection.query('DELETE FROM invoice', function (error, response){
@@ -202,4 +206,6 @@ function replay () {
   })
 }   
     
-displayProducts();
+console.reset = function () {
+  return process.stdout.write('\033c');
+}

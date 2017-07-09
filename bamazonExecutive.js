@@ -20,7 +20,7 @@ connection.connect(function(err){
     console.log('Error connecting to Db');
     return;
   };
-  console.log('Connected!');
+  console.log('Connected to Bamazon');
   menu();
 });
 
@@ -45,6 +45,7 @@ function menu () {
            break;
        
          default:
+;         console.reset()
           console.log('Goodbye');
           connection.end();
           break;
@@ -64,8 +65,7 @@ function viewSales () {
         query +=  "ORDER BY p.product_sales DESC";
        
   connection.query(query, function (error, response){
-    if(error) throw error;
-      console.log(response.length);  
+    if(error) throw error;  
     let table = new Table ({ 
       head: ['Department ID', 'Department Name', 'Product Sales', 'Overhead Costs', 'Gross Profit' ],  
     });
@@ -73,12 +73,14 @@ function viewSales () {
     for (let i = 0; i < response.length; i++) {
       table.push([response[i].department_id, response[i].department_name, '$' + response[i].sales, '$' + response[i].overhead_costs, '$' + response[i].gross_profit])   
     }
+    console.reset();            
     console.log(table.toString());
      menu();
   })
 }
 
 function createDepartment () {
+  console.reset();
    inquirer.prompt([
     {
       type: 'input',
@@ -102,4 +104,8 @@ function createDepartment () {
          menu();  
         })
     })
+}
+
+console.reset = function () {
+  return process.stdout.write('\033c');
 }
