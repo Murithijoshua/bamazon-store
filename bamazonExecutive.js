@@ -3,8 +3,7 @@ const Table = require('cli-table');
 const number = require('accounting')
 const inquirer = require('inquirer');
 const colors = require('colors');
-const env = require('./.env');
-var item, qty, updateQTY, grandTotal = 0, itemsPurchased = 0;
+
 
 //create object containing mysql connection values
 var connection = mysql.createConnection ({
@@ -46,30 +45,33 @@ function menu () {
            break;
        
          default:
-         Console.log('Goodbye');
+          console.log('Goodbye');
           connection.end();
-           
+          break;
+      
        }
-
   })
 }
 
 function viewSales () {
 
-    let query =  "SELECT department.department_id, department.department_name, department.overhead_costs, ";            query +=  "products.product_sales ";
-        query +=  "FROM department ";
-        query += "LEFT JOIN department ON department.department_name = products.department_name ";
-        query += "GROUP BY department.department_name ";
-        query += "ORDER BY products.product_sales";  
-        console.log (query)
+    let query =  "SELECT d.department_id, d.department_name, d.overhead_costs, ";
+        query +=  "SUM(p.product_sales) AS sales, ";
+        query +=  "p.product_sales - d.overhead_costs AS gross_profit ";
+        query +=  "FROM department AS d ";
+        query +=  "INNER JOIN products AS p ON d.department_name = p.department_name ";
+        query +=  "GROUP BY d.department_name ";
+        query +=  "ORDER BY p.product_sales DESC";
+       
   connection.query(query, function (error, response){
+    if(error) throw error;
       console.log(response.length);  
     let table = new Table ({ 
-      head: ['Department ID', 'Department Name', 'Overhead Costs', 'Product Sales'],  
+      head: ['Department ID', 'Department Name', 'Product Sales', 'Overhead Costs', 'Gross Profit' ],  
     });
 
     for (let i = 0; i < response.length; i++) {
-      table.push([response[i].department_id, response[i].department_name, '$' + response[i].overhead_costs, '$' + response[i].product_sales])   
+      table.push([response[i].department_id, response[i].department_name, '$' + response[i].sales, '$' + response[i].overhead_costs, '$' + response[i].gross_profit])   
     }
     console.log(table.toString());
      menu();

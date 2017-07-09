@@ -8,5 +8,5 @@ iceCream.js
 playlist.js
 .vscode/
 instructions.md 
-example.md 
 server.js
+createBamazonDB.js
