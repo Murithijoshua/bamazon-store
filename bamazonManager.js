@@ -3,7 +3,6 @@ const Table = require('cli-table');
 const number = require('accounting')
 const inquirer = require('inquirer');
 const colors = require('colors');
-const connect = require('./config');
 
 var connection = mysql.createConnection ({
    host: 'localhost',
@@ -19,6 +18,8 @@ connection.connect(function(err){
     return;
   };
   console.log('Connected to Bamazon')
+  console.reset();
+
   menu();
 });
 
@@ -37,18 +38,22 @@ function menu() {
         
         switch (command) {
             case "View products for sale":
+            console.reset();
             displayProducts();
             break;
 
             case "View low inventory": 
+            console.reset();
             lowStock();
             break;
 
             case "Add to inventory":
+            console.reset();
             restock();
             break;
 
             case "Add new products":
+            console.reset();
             addNew();
             break;
 
@@ -72,7 +77,7 @@ function displayProducts() {
     for (let i = 0; i < response.length; i++) {
       table.push([response[i].item_id, response[i].product_name, response[i].department_name, '$' + response[i].product_price, response[i].stock_quantity])   
     }
-    console.reset();
+    
     console.log(table.toString());
      menu();
   })
@@ -89,13 +94,14 @@ function lowStock () {
     for (let i = 0; i < response.length; i++) {
       table.push([response[i].item_id, response[i].product_name, response[i].department_name, '$' + response[i].product_price, response[i].stock_quantity])   
     }
-    console.reset();
+   
     console.log(table.toString());
     menu();
     })
 }
 
 function restock() {
+
     connection.query("SELECT * FROM products", function(err, results) {
     if (err) throw err;
   
@@ -140,7 +146,7 @@ function restock() {
       ],
       function(err, res) { 
         if (err) throw err;
-        console.log(chosenItem.product_name .blue + "inventory adjusted to ".blue + answer.qty .red);
+        console.log(chosenItem.product_name .blue + " inventory adjusted to ".blue + answer.qty .red);
         menu(); 
       })  
     })

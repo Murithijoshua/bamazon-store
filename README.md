@@ -38,17 +38,39 @@ ___:
 
 ### Customer Screens
 Display Products
+
 ![Purchase Screen](/screenShots/purchaseScreen.png)
+
 Purchase Confirmed
+
 ![Confirm Purchase](/screenShots/purchaseConfirmed.png)
+
 Validation
+
 ![Purchase Limitation](screenShots/purchaseRestriction.png)
+
 Purchase Invoice
+
 ![Purchase Invoice](/screenShots/purchaseInvoice.png)
 
 ### Manager Screens
 View Products
+
 ![View Products](/screenShots/viewProducts.png)
+
 Low Inventory
+
 ![Low Inventory](/screenShots/lowInventory.png)
+
+Restock
+
+![restock](/screenShots/restock.png)
+![restock](/screenShots/restock2.png)
+
+### Executive Screens
+
+Department View
+
+![Executive](/screenShots/executiveView.png)
+
 
