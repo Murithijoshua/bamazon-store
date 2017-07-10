@@ -26,12 +26,22 @@ A Node.js / MySQL Amazon-like app
 * bamazonExecutive will display department sales and gross profit as well as creating new departments.
 
 
-
+---:
 
 ## :bust_in_silhouette:
 
 * Rich Cross 
 
-## :camera:
+___:
 
-* See screenshots in repository for a sample of app
+## :tv:
+
+## Customer Screens
+
+![Purchase Screen](/screenShots/purchaseScreen.png)Display Products
+![Confirm Purchase](/screenShots/purchaseConfirmed.png)Purchase Confirmed
+![Purchase Limitation](screenshots/purchaseRestriction)Validation
+![Purchase Invoice](/screenShots/purchaseInvoice)Purchase Invoice
+
+## Manager Screens
+
