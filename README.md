@@ -26,13 +26,10 @@ A Node.js / MySQL Amazon-like app
 * bamazonExecutive will display department sales and gross profit as well as creating new departments.
 
 
----:
-
 ## :bust_in_silhouette:
 
 * Rich Cross 
 
-___:
 
 ## :tv:
 
