@@ -36,12 +36,19 @@ ___:
 
 ## :tv:
 
-## Customer Screens
+### Customer Screens
+Display Products
+![Purchase Screen](/screenShots/purchaseScreen.png)
+Purchase Confirmed
+![Confirm Purchase](/screenShots/purchaseConfirmed.png)
+Validation
+![Purchase Limitation](screenShots/purchaseRestriction.png)
+Purchase Invoice
+![Purchase Invoice](/screenShots/purchaseInvoice.png)
 
-![Purchase Screen](/screenShots/purchaseScreen.png)Display Products
-![Confirm Purchase](/screenShots/purchaseConfirmed.png)Purchase Confirmed
-![Purchase Limitation](screenshots/purchaseRestriction)Validation
-![Purchase Invoice](/screenShots/purchaseInvoice)Purchase Invoice
-
-## Manager Screens
+### Manager Screens
+View Products
+![View Products](/screenShots/viewProducts.png)
+Low Inventory
+![Low Inventory](/screenShots/lowInventory.png)
 
