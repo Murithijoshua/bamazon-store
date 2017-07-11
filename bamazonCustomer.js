@@ -12,7 +12,7 @@ var connection = mysql.createConnection ({
    host: 'localhost',
    user: 'root',
    port: '3306',
-   password: 'T0bydogg',
+   password: '',
    database: 'bamazon'
 })
 
